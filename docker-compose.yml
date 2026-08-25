@@ -1,0 +1,39 @@
+services:
+  gitea:
+    image: gitea/gitea:latest
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=sqlite3
+      - GITEA__server__DOMAIN=git.cristocreativetech.com
+      - GITEA__server__ROOT_URL=https://git.cristocreativetech.com
+      - GITEA__server__SSH_DOMAIN=git.cristocreativetech.com
+      - GITEA__server__SSH_PORT=222
+      - GITEA__service__DISABLE_REGISTRATION=true
+      - GITEA__actions__ENABLED=true
+    restart: unless-stopped
+    volumes:
+      - /home/pi/gitea-data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3000:3000"
+      - "222:22"
+
+#   runner:
+#     image: gitea/act_runner:latest
+#     container_name: gitea-runner
+#     environment:
+#       - GITEA_INSTANCE_URL=http://gitea:3000
+#       - GITEA_RUNNER_REGISTRATION_TOKEN=${RUNNER_TOKEN}
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock
+#       - runner_data:/data
+#     depends_on:
+#       - gitea
+#     restart: unless-stopped
+
+# volumes:
+#   runner_data:
+#     driver: local
