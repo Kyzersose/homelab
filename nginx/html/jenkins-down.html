@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jenkins lab is down</title>
+<style>
+  :root {
+    --jenkins-red: #d33833;
+    --jenkins-blue: #335061;
+    --bg: #f4f6f7;
+    --card: #ffffff;
+    --text: #1c2b33;
+    --muted: #5a6b75;
+    --line: #dfe5e8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12191d;
+      --card: #1a242a;
+      --text: #e8eef1;
+      --muted: #93a4ae;
+      --line: #2b383f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .card {
+    width: 100%;
+    max-width: 460px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--jenkins-red);
+    border-radius: 10px;
+    padding: 40px 36px 32px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  svg { display: block; margin: 0 auto 20px; }
+  h1 { margin: 0 0 10px; font-size: 22px; letter-spacing: -.01em; }
+  p { margin: 0 0 20px; color: var(--muted); font-size: 15px; }
+  .hosts {
+    margin: 0;
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+    text-align: left;
+    font: 13px/1.9 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: var(--muted);
+  }
+  .hosts div { display: flex; justify-content: space-between; gap: 12px; }
+  .hosts span:last-child { color: var(--jenkins-red); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <!-- Butler silhouette in the Jenkins palette. Not the official mark. -->
+    <svg width="76" height="76" viewBox="0 0 76 76" role="img" aria-label="Jenkins butler">
+      <circle cx="38" cy="38" r="38" fill="var(--jenkins-blue)"/>
+      <ellipse cx="38" cy="30" rx="15" ry="17" fill="#f0e6d8"/>
+      <path d="M23 26c0-9 7-14 15-14s15 5 15 14c0 3-2 4-3 2-3-5-8-7-12-7s-9 2-12 7c-1 2-3 1-3-2z" fill="#3b3b3b"/>
+      <circle cx="32" cy="31" r="4.5" fill="#fff"/>
+      <circle cx="44" cy="31" r="4.5" fill="#fff"/>
+      <circle cx="32.5" cy="31.5" r="2" fill="#1c2b33"/>
+      <circle cx="43.5" cy="31.5" r="2" fill="#1c2b33"/>
+      <path d="M33 41c2 2 8 2 10 0" stroke="#8a7b6b" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M22 76c1-13 7-20 16-22 0 0 0 0 0 0 0 0 0 0 0 0 9 2 15 9 16 22z" fill="#f7f7f7"/>
+      <path d="M38 54l7 8-7 6-7-6z" fill="var(--jenkins-red)"/>
+    </svg>
+    <h1>Jenkins lab is down</h1>
+    <p>Learning will commence sometime soon.</p>
+  </div>
+</body>
+</html>

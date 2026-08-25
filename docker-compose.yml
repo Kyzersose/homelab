@@ -18,14 +18,13 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - "3000:3000"
-      - "222:22"
+      - "222:22" # git+ssh, not proxied by nginx
+    networks:
+      - proxy_network
   n8n:
     image: docker.n8n.io/n8nio/n8n:latest
     container_name: n8n
     restart: always
-    ports:
-      - "443:5678" # Map host port 443 to container port 5678
     environment:
       - N8N_HOST=${N8N_HOST}
       - N8N_PROTOCOL=${N8N_PROTOCOL}
@@ -40,6 +39,24 @@ services:
       - ./local-files:/local-files
     networks:
       - n8n_network
+      - proxy_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80" # cloudflared points its ingress rules here
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/html:/usr/share/nginx/html:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - gitea
+      - n8n
+    networks:
+      - proxy_network
 
 volumes:
   n8n_data:
@@ -48,6 +65,8 @@ volumes:
 networks:
   n8n_network:
     name: n8n_network
+  proxy_network:
+    name: proxy_network
 
 #   runner:
 #     image: gitea/act_runner:latest
