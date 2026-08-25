@@ -6,9 +6,9 @@ services:
       - USER_UID=1000
       - USER_GID=1000
       - GITEA__database__DB_TYPE=sqlite3
-      - GITEA__server__DOMAIN=git.cristocreativetech.com
-      - GITEA__server__ROOT_URL=https://git.cristocreativetech.com
-      - GITEA__server__SSH_DOMAIN=git.cristocreativetech.com
+      - GITEA__server__DOMAIN=git.theshaeffers.com
+      - GITEA__server__ROOT_URL=https://git.theshaeffers.com
+      - GITEA__server__SSH_DOMAIN=git.theshaeffers.com
       - GITEA__server__SSH_PORT=222
       - GITEA__service__DISABLE_REGISTRATION=true
       - GITEA__actions__ENABLED=true
@@ -20,6 +20,34 @@ services:
     ports:
       - "3000:3000"
       - "222:22"
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    container_name: n8n
+    restart: always
+    ports:
+      - "443:5678" # Map host port 443 to container port 5678
+    environment:
+      - N8N_HOST=${N8N_HOST}
+      - N8N_PROTOCOL=${N8N_PROTOCOL}
+      - N8N_PORT=${N8N_PORT}
+      - WEBHOOK_URL=${WEBHOOK_URL}
+      - N8N_EDITOR_BASE_URL=${N8N_EDITOR_BASE_URL}
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+      - N8N_LOG_LEVEL=${N8N_LOG_LEVEL}
+      - N8N_SECURE_COOKIE=${N8N_SECURE_COOKIE}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./local-files:/local-files
+    networks:
+      - n8n_network
+
+volumes:
+  n8n_data:
+    name: n8n_data
+
+networks:
+  n8n_network:
+    name: n8n_network
 
 #   runner:
 #     image: gitea/act_runner:latest

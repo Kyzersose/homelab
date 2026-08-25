@@ -1,2 +1,59 @@
 /gitea-data/*
+
+# --- Secrets / environment ---
 .env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+credentials.json
+client_secret*.json
+
+# --- n8n runtime data ---
+# Local bind-mount or exported n8n home (workflows, credentials DB, encryption key)
+n8n_data/
+.n8n/
+/local-files/
+database.sqlite
+database.sqlite-*
+
+# --- n8n exports containing decrypted credentials ---
+# Only `n8n export:credentials` output is sensitive; workflow JSON is fine to commit.
+exports/credentials/
+
+# --- Docker / compose overrides ---
+docker-compose.override.yml
+docker-compose.*.local.yml
+
+# --- Backups & dumps ---
+*.bak
+*.backup
+*.dump
+*.sql
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+
+# --- Logs ---
+*.log
+logs/
+npm-debug.log*
+
+# --- Editor / OS ---
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Node (if tooling is added later) ---
+node_modules/
+.npm/
+
+# --- Claude Code local settings ---
+.claude/settings.local.json
